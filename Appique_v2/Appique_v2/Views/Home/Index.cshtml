@@ -408,27 +408,40 @@
             <div class="form-card">
                 <h3>Send us a message</h3>
                 <p>Tell us about your project and we will come back with a clear plan and honest quote.</p>
-                <form id="contactForm" onsubmit="return handleSubmit(event)" novalidate>
+
+                <!-- Success / error banners -->
+                <div id="form-success" style="display:none;margin-top:1.25rem;padding:1rem 1.25rem;
+                     background:#dcfce7;border:1px solid #bbf7d0;border-radius:12px;
+                     color:#15803d;font-size:0.875rem;font-weight:500;">
+                    ✓ Message sent! We'll be in touch within one working day.
+                </div>
+                <div id="form-error" style="display:none;margin-top:1.25rem;padding:1rem 1.25rem;
+                     background:#fee2e2;border:1px solid #fecaca;border-radius:12px;
+                     color:#dc2626;font-size:0.875rem;font-weight:500;">
+                </div>
+
+                <form id="contact-form" novalidate>
+                    @Html.AntiForgeryToken()
                     <div class="form-grid">
                         <div>
                             <label for="f-name">Your name *</label>
-                            <input class="input" type="text" id="f-name" name="name" placeholder="Jane Dlamini" required autocomplete="name" />
+                            <input class="input" type="text" id="f-name" name="Name" placeholder="Jane Dlamini" required autocomplete="name" />
                         </div>
                         <div>
                             <label for="f-email">Email address *</label>
-                            <input class="input" type="email" id="f-email" name="email" placeholder="jane@company.co.za" required autocomplete="email" />
+                            <input class="input" type="email" id="f-email" name="Email" placeholder="jane@company.co.za" required autocomplete="email" />
                         </div>
                         <div>
                             <label for="f-phone">Phone / WhatsApp</label>
-                            <input class="input" type="tel" id="f-phone" name="phone" placeholder="+27 XX XXX XXXX" autocomplete="tel" />
+                            <input class="input" type="tel" id="f-phone" name="Phone" placeholder="+27 XX XXX XXXX" autocomplete="tel" />
                         </div>
                         <div>
                             <label for="f-company">Company name</label>
-                            <input class="input" type="text" id="f-company" name="company" placeholder="Acme Pty Ltd" autocomplete="organization" />
+                            <input class="input" type="text" id="f-company" name="Company" placeholder="Acme Pty Ltd" autocomplete="organization" />
                         </div>
                         <div class="form-full">
                             <label for="f-service">Service interested in</label>
-                            <select class="input" id="f-service" name="service">
+                            <select class="input" id="f-service" name="Service">
                                 <option value="">Select a service</option>
                                 <option>Custom Web Platform</option>
                                 <option>Business Management System</option>
@@ -443,11 +456,11 @@
                         </div>
                         <div class="form-full">
                             <label for="f-message">Tell us about your project *</label>
-                            <textarea class="input" id="f-message" name="message" rows="5" placeholder="Describe what you're trying to build or solve. Include any timeline or budget details if you have them." required></textarea>
+                            <textarea class="input" id="f-message" name="Message" rows="5" placeholder="Describe what you're trying to build or solve. Include any timeline or budget details if you have them." required></textarea>
                         </div>
                     </div>
                     <div class="form-submit">
-                        <button type="submit" class="btn-cta gold" style="width:100%;justify-content:center;padding:1rem;">
+                        <button type="submit" id="form-btn" class="btn-cta gold" style="width:100%;justify-content:center;padding:1rem;">
                             Send Message, It's Free
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                         </button>

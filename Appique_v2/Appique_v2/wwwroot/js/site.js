@@ -19,35 +19,49 @@ mobileNav?.querySelectorAll('a').forEach(a => {
     });
 });
 
-// Contact form -> mailto
-function handleSubmit(e) {
-    e.preventDefault();
-    const name    = document.getElementById('f-name').value.trim();
-    const email   = document.getElementById('f-email').value.trim();
-    const phone   = document.getElementById('f-phone').value.trim();
-    const company = document.getElementById('f-company').value.trim();
-    const service = document.getElementById('f-service').value;
-    const message = document.getElementById('f-message').value.trim();
+// Contact form -> POST to /Home/Contact
+(function () {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
 
-    if (!name || !email || !message) {
-        alert('Please fill in your name, email and project details.');
-        return false;
-    }
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-    const body = [
-        message, '',
-        '---',
-        `Name: ${name}`,
-        email   ? `Email: ${email}`   : '',
-        phone   ? `Phone: ${phone}`   : '',
-        company ? `Company: ${company}` : '',
-        service ? `Service: ${service}` : '',
-    ].filter(Boolean).join('\n');
+        const btn     = document.getElementById('form-btn');
+        const success = document.getElementById('form-success');
+        const error   = document.getElementById('form-error');
 
-    const subject = `Project enquiry from ${name}${company ? ', ' + company : ''}`;
-    window.location.href = `mailto:hello@appique.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    return false;
-}
+        success.style.display = 'none';
+        error.style.display   = 'none';
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        const data = new URLSearchParams(new FormData(form));
+
+        try {
+            const res  = await fetch('/Home/Contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: data.toString(),
+            });
+            const json = await res.json();
+
+            if (json.success) {
+                success.style.display = 'block';
+                form.reset();
+            } else {
+                error.textContent    = json.message || 'Something went wrong. Please try again.';
+                error.style.display  = 'block';
+            }
+        } catch {
+            error.textContent   = 'Could not reach the server. Please try again later.';
+            error.style.display = 'block';
+        } finally {
+            btn.disabled    = false;
+            btn.textContent = 'Send message';
+        }
+    });
+})();
 
 // Intersection observer for entrance animations
 if ('IntersectionObserver' in window) {
