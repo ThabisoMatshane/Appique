@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block server internals
+Disallow: /bin/
+Disallow: /obj/
+Disallow: /lib/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://appique.co.za/sitemap.xml

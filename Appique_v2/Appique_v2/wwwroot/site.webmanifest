@@ -1,0 +1,23 @@
+{
+  "name": "Appique",
+  "short_name": "Appique",
+  "description": "Appique — Digital solutions company in Johannesburg, South Africa. Custom web platforms, Power BI dashboards, automation and AI solutions.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#faf6ee",
+  "theme_color": "#07204a",
+  "lang": "en-ZA",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
